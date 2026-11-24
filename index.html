@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matra Boli by Nishtek — Captions in every Indian language</title>
+  <meta name="description" content="Free Indian-language video caption studio. Transcribe, translate and style animated captions in Hindi, Hinglish and regional languages — right in your browser." />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#16A34A" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Matra Boli by Nishtek — Captions in every Indian language" />
+  <meta property="og:description" content="Free animated captions for Indian creators. Hindi, Hinglish and 12 more languages — runs in your browser, your video never leaves your device." />
+  <meta property="og:url" content="https://nishtek.in/matra-boli/" />
+  <meta property="og:site_name" content="Nishtek" />
+  <link rel="canonical" href="https://nishtek.in/matra-boli/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;600;700;800&family=Baloo+2:wght@500;700;800&family=Baloo+Paaji+2:wght@700;800&family=Baloo+Da+2:wght@700;800&family=Baloo+Thambi+2:wght@700;800&family=Baloo+Tammudu+2:wght@700;800&family=Baloo+Bhai+2:wght@700;800&family=Baloo+Tamma+2:wght@700;800&family=Baloo+Chettan+2:wght@700;800&family=Baloo+Bhaina+2:wght@700;800&family=Noto+Nastaliq+Urdu:wght@700&family=Mukta:wght@600;700;800&family=Anton&family=Montserrat:wght@700;800&family=Yatra+One&family=Noto+Sans:wght@600;700;800&family=Hind:wght@600;700&family=Khula:wght@600;700;800&family=Teko:wght@500;600;700&family=Rozha+One&family=Kalam:wght@700&family=Modak&family=Rajdhani:wght@600;700&family=Sarpanch:wght@700;800&family=Eczar:wght@600;700&family=Amita:wght@700&family=Instrument+Serif:ital@0;1&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-view="home">
+  <!-- ============================ HOME ============================ -->
+  <div id="home">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Matra Boli by Nishtek — home">
+        <img class="logo" src="assets/logo.svg" alt="" width="42" height="42" />
+        <div class="brand-product">
+          <div class="brand-title">Matra Boli <span class="beta">Beta</span></div>
+          <div class="brand-sub">by Nishtek</div>
+        </div>
+      </a>
+      <nav class="nav">
+        <a href="#top" class="active">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how">How it Works</a>
+        <a href="faq.html">FAQ</a>
+        <a href="#start" class="btn btn-primary btn-sm"><i data-lucide="sparkles"></i>Free Tool</a>
+      </nav>
+    </header>
+
+    <section class="intro-banner" id="introBanner" aria-label="What is Matra Boli">
+      <div class="ib-text">
+        <span class="ib-tag">What is Matra Boli?</span>
+        <p><b>A free caption studio for Indian creators.</b> Drop in a short video and Matra Boli listens to it, writes captions in Hindi, Hinglish or 12 more Indian languages, and animates them Reels-style — ready to download. No sign-up, no API keys, and your video never leaves your device.</p>
+      </div>
+      <ol class="ib-flow" aria-hidden="true">
+        <li><span><i data-lucide="mic"></i></span>Your video speaks</li>
+        <li><span><i data-lucide="languages"></i></span>Captions in your bhasha</li>
+        <li><span><i data-lucide="sparkles"></i></span>Animated &amp; ready to post</li>
+      </ol>
+      <button class="icon-btn ib-close" id="closeBanner" aria-label="Hide this banner"><i data-lucide="x"></i></button>
+    </section>
+
+    <main id="top">
+      <section class="hero">
+        <h1 class="hero-title">Matra Boli<svg class="swoosh" viewBox="0 0 300 20" preserveAspectRatio="none"><path d="M5 14 Q 150 2 295 10" /></svg></h1>
+        <div class="hero-by">by Nishtek</div>
+        <p class="hero-tag">Your video. Every Indian language.</p>
+        <p class="hero-sub">Transcribe, translate and style your captions. Completely free.</p>
+        <div class="pills">
+          <span class="pill"><i data-lucide="zap"></i>No API Keys</span>
+          <span class="pill"><i data-lucide="shield-check"></i>Runs in Browser</span>
+          <span class="pill"><i data-lucide="lock"></i>Privacy First</span>
+        </div>
+      </section>
+
+      <section class="card start-card" id="start">
+        <div class="start-grid">
+          <ol class="steps">
+            <li class="step active"><span class="num">1</span><div><b>Upload Video</b><small>Up to 60 seconds</small></div></li>
+            <li class="step"><span class="num">2</span><div><b>Transcribe</b><small>Convert speech to text</small></div></li>
+            <li class="step"><span class="num">3</span><div><b>Translate</b><small>Multiple Indian languages</small></div></li>
+            <li class="step"><span class="num">4</span><div><b>Style &amp; Export</b><small>Animated captions and download</small></div></li>
+          </ol>
+
+          <label class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" accept="video/mp4,video/quicktime,video/webm,video/*" hidden />
+            <div class="dz-icon"><i data-lucide="file-video"></i><span class="dz-plus"><i data-lucide="plus"></i></span></div>
+            <div class="dz-title" id="dzTitle">Upload or drop your video here</div>
+            <div class="dz-meta" id="dzMeta">MP4, MOV, WebM · Maximum 60 seconds</div>
+            <span class="btn btn-primary"><i data-lucide="upload"></i>Choose Video</span>
+          </label>
+
+          <div class="demo-phone">
+            <canvas id="heroDemo" width="540" height="560"></canvas>
+            <div class="demo-lang" id="heroLang">हिन्दी</div>
+          </div>
+        </div>
+
+        <div class="options-row">
+          <div class="opt">
+            <label for="homeSrc">Caption Language</label>
+            <select id="homeSrc"></select>
+          </div>
+          <div class="opt">
+            <label for="homeTgt">Translate To</label>
+            <select id="homeTgt"></select>
+          </div>
+          <div class="opt">
+            <label for="homeStyle">Caption Style</label>
+            <select id="homeStyle"></select>
+          </div>
+          <button class="btn btn-primary btn-lg" id="generateBtn"><i data-lucide="sparkles"></i>Generate Captions</button>
+        </div>
+
+        <div class="lang-strip">
+          <div class="lang-strip-title"><i data-lucide="globe"></i>Popular Languages</div>
+          <div class="chips" id="langChips"></div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <h2>Built for Indian creators</h2>
+        <div class="feature-grid">
+          <div class="feature"><i data-lucide="languages"></i><b>14 Indian languages</b><p>Hindi, Hinglish, Punjabi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Odia, Assamese, Urdu and English.</p></div>
+          <div class="feature"><i data-lucide="wand-sparkles"></i><b>12 caption animations</b><p>Word Pop, Karaoke, Typewriter, Bounce, Glitch, Wave and more. Mix any animation with any style.</p></div>
+          <div class="feature"><i data-lucide="type"></i><b>Native-script fonts</b><p>Each script gets a matching font from the Baloo family, so Devanagari, Tamil, Bengali and the rest render properly.</p></div>
+          <div class="feature"><i data-lucide="shield-check"></i><b>Your video stays private</b><p>Speech recognition and translation run on your own device. No account, no uploads, no API keys.</p></div>
+        </div>
+      </section>
+
+      <section class="how" id="how">
+        <h2>How it works</h2>
+        <div class="how-grid">
+          <div><span class="how-n">1</span><b>Drop a video</b><p>Any clip up to 60 seconds.</p></div>
+          <div><span class="how-n">2</span><b>Auto-transcribe</b><p>Whisper turns speech into timed captions.</p></div>
+          <div><span class="how-n">3</span><b>Translate &amp; edit</b><p>Switch language, script or fix any word.</p></div>
+          <div><span class="how-n">4</span><b>Style &amp; export</b><p>Pick a look and an animation, then download.</p></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ============================ EDITOR ============================ -->
+  <div id="editor">
+    <header class="topbar editor-top">
+      <a class="brand" href="#" id="backHome" title="Back to home">
+        <img class="logo" src="assets/logo.svg" alt="" width="38" height="38" />
+        <div class="brand-product">
+          <div class="brand-title">Matra Boli</div>
+          <div class="brand-sub">by Nishtek</div>
+        </div>
+      </a>
+      <ol class="stepper" id="stepper">
+        <li data-s="1"><span class="num">1</span>Upload</li>
+        <li data-s="2"><span class="num">2</span>Transcribe</li>
+        <li data-s="3"><span class="num">3</span>Translate</li>
+        <li data-s="4"><span class="num">4</span>Style</li>
+        <li data-s="5"><span class="num">5</span>Export</li>
+      </ol>
+      <div class="top-actions">
+        <button class="btn btn-ghost" id="saveDraft"><i data-lucide="save"></i><span>Save Draft</span></button>
+        <button class="btn btn-primary" id="exportBtn"><i data-lucide="download"></i><span>Export Video</span></button>
+      </div>
+    </header>
+
+    <div class="editor-grid">
+      <!-- Left sidebar -->
+      <aside class="panel side" data-pane="language">
+        <div class="file-info">
+          <canvas id="thumb" width="96" height="96"></canvas>
+          <div><b id="fileName">my video.mp4</b><small id="fileMeta">00:00</small></div>
+          <button class="icon-btn" id="replaceVideo" title="Replace video"><i data-lucide="refresh-cw"></i></button>
+        </div>
+        <div class="field">
+          <label for="srcLang">Language</label>
+          <select id="srcLang"></select>
+        </div>
+        <div class="field">
+          <label for="tgtLang">Translate To</label>
+          <select id="tgtLang"></select>
+        </div>
+        <nav class="side-nav" id="sideNav" aria-label="Editor sections">
+          <button data-view="transcript"><i data-lucide="square-pen"></i>Transcript</button>
+          <button data-view="styles" class="on"><i data-lucide="layers"></i>Styles</button>
+          <button data-view="motion"><i data-lucide="wand-sparkles"></i>Animations</button>
+          <button data-view="position"><i data-lucide="scan"></i>Position</button>
+          <button data-view="settings"><i data-lucide="settings"></i>More Settings</button>
+        </nav>
+        <div class="tip"><i data-lucide="lightbulb"></i><div><b>Tip</b><p>Use Styles + Animations to make your captions more engaging and readable. Drag caption blocks on the timeline to fix timing.</p></div></div>
+      </aside>
+
+      <!-- Center -->
+      <section class="center">
+        <div class="center-top">
+          <div class="player panel" data-pane="preview">
+            <div class="stage" id="stage">
+              <canvas id="previewCanvas"></canvas>
+              <div class="busy" id="busy" hidden role="status" aria-live="polite">
+                <div class="spinner"></div>
+                <b id="busyTitle">Loading speech model…</b>
+                <div class="bar"><span id="busyBar"></span></div>
+                <small id="busySub">One-time download, cached for next time</small>
+              </div>
+            </div>
+            <div class="controls">
+              <button class="icon-btn" id="playBtn" title="Play / pause (Space)"><i data-lucide="play"></i></button>
+              <span class="time" id="timeLabel">0:00 / 0:00</span>
+              <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Seek" />
+              <button class="icon-btn" id="muteBtn" title="Mute"><i data-lucide="volume-2"></i></button>
+              <button class="icon-btn" id="fsBtn" title="Fullscreen"><i data-lucide="maximize"></i></button>
+            </div>
+          </div>
+
+          <div class="panel gallery" data-pane="panel">
+            <div class="tabs" id="galleryTabs">
+              <button data-tab="styles" class="on"><i data-lucide="layers"></i>Styles</button>
+              <button data-tab="motion"><i data-lucide="wand-sparkles"></i>Animations</button>
+              <button data-tab="text"><i data-lucide="type"></i>Text</button>
+              <button data-tab="colors"><i data-lucide="palette"></i>Colors</button>
+              <button data-tab="position"><i data-lucide="crosshair"></i>Position</button>
+            </div>
+
+            <div class="tab-body" data-body="styles">
+              <div class="gal-head">
+                <b>Caption Styles</b>
+                <div class="filters" id="styleFilters">
+                  <button data-f="all" class="on">All</button>
+                  <button data-f="popular">Popular</button>
+                  <button data-f="bold">Bold</button>
+                  <button data-f="minimal">Minimal</button>
+                  <button data-f="cinematic">Cinematic</button>
+                  <button data-f="creator">Creator</button>
+                  <button data-f="saved">Saved</button>
+                </div>
+              </div>
+              <div class="cards" id="styleCards"></div>
+              <div id="savedWrap" hidden>
+                <div class="cards" id="presetCards"></div>
+                <p class="muted empty" id="presetEmpty">Save a style + animation combination to reuse it on your next video. Presets are stored in this browser.</p>
+                <div class="center-btn"><button class="btn btn-primary btn-sm" id="savePreset"><i data-lucide="plus"></i>Save current style</button></div>
+              </div>
+            </div>
+
+            <div class="tab-body" data-body="motion" hidden>
+              <div class="gal-head"><b>Word Animation</b><small class="muted">Previews use your current style</small></div>
+              <div class="cards" id="animCards"></div>
+              <div class="motion-controls">
+                <div class="field">
+                  <label>Animate by</label>
+                  <div class="seg" id="modeSeg">
+                    <button data-v="word" class="on">Word</button>
+                    <button data-v="sentence">Sentence</button>
+                  </div>
+                </div>
+                <div class="field"><label for="entrance">Caption entrance</label><select id="entrance"></select></div>
+                <div class="field"><label for="easing">Easing</label><select id="easing"></select></div>
+                <div class="field"><label>Speed <output id="speedOut">1.0×</output></label><input type="range" id="speed" min="0.4" max="2.5" step="0.1" value="1" /></div>
+                <div class="field"><label>Delay <output id="delayOut">0.00 s</output></label><input type="range" id="delay" min="-0.2" max="0.6" step="0.02" value="0" /></div>
+              </div>
+            </div>
+
+            <div class="tab-body form-body" data-body="text" hidden>
+              <div class="gal-head"><b>Font Pairings</b><small class="muted">A clean base font + a display font for the key word</small></div>
+              <div class="cards pair-cards" id="pairCards"></div>
+              <div class="form-grid pair-controls">
+                <div class="field">
+                  <label>Emphasis</label>
+                  <div class="seg" id="accentModeSeg">
+                    <button data-v="key" class="on">Key word</button>
+                    <button data-v="active">Spoken word</button>
+                    <button data-v="off">Off</button>
+                  </div>
+                  <small class="hint">Tip: wrap a word in *stars* in the transcript to choose it yourself.</small>
+                </div>
+                <div class="field"><label>Accent font</label>
+                  <div class="fp-row"><button class="font-pick" id="accentFontBtn" data-target="accentFont" type="button"><span class="fp-name" id="accentFontName">None</span><span class="fp-sub">Choose from library</span><i data-lucide="chevron-right"></i></button>
+                  <button class="icon-btn" id="accentClear" title="Remove accent font" type="button"><i data-lucide="x"></i></button></div>
+                </div>
+                <div class="field"><label>Hindi font <small class="muted">for Hinglish</small></label>
+                  <div class="fp-row"><button class="font-pick" id="hindiFontBtn" data-target="hindiFont" type="button"><span class="fp-name" id="hindiFontName">Auto</span><span class="fp-sub">Devanagari fonts</span><i data-lucide="chevron-right"></i></button>
+                  <button class="icon-btn" id="hindiClear" title="Use automatic Hindi font" type="button"><i data-lucide="rotate-ccw"></i></button></div>
+                </div>
+                <div class="field"><label>Accent size <output id="accentScaleOut">1.30×</output></label><input type="range" id="accentScale" min="1" max="1.8" step="0.05" value="1.3" /></div>
+                <div class="field"><label>Accent colour</label><div class="swatches" id="accentColorSw"></div></div>
+                <div class="field row"><label>Italic accent</label><label class="switch"><input type="checkbox" id="accentItalic" /><span></span></label></div>
+                <div class="field row"><label>UPPERCASE accent (English)</label><label class="switch"><input type="checkbox" id="accentUpper" /><span></span></label></div>
+              </div>
+              <div class="gal-head sub-head"><b>Text</b></div>
+              <div class="form-grid">
+                <div class="field"><label>Words on screen <output id="maxWordsOut">4</output></label><input type="range" id="maxWords" min="0" max="10" step="1" value="4" /><small class="hint">Full line = show the whole caption at once</small></div>
+                <div class="field"><label>Line spacing <output id="lhOut">1.30</output></label><input type="range" id="lineHeight" min="1" max="1.8" step="0.05" value="1.3" /></div>
+                <div class="field"><label>Letter spacing <output id="lsOut">0.00 em</output></label><input type="range" id="letterSpacing" min="-0.05" max="0.3" step="0.01" value="0" /></div>
+                <div class="field row"><label>UPPERCASE (English words)</label><label class="switch"><input type="checkbox" id="upperOn" /><span></span></label></div>
+                <div class="field"><label>Script</label>
+                  <div class="seg" id="scriptSeg"><button data-v="native" class="on">Native</button><button data-v="roman">Roman (Hinglish)</button></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-body form-body" data-body="colors" hidden>
+              <div class="gal-head"><b>Colors</b></div>
+              <div class="form-grid">
+                <div class="field"><label>Active word colour</label><div class="swatches" id="activeColorSw"></div></div>
+                <div class="field"><label>Outline colour</label><div class="swatches" id="outlineColorSw"></div></div>
+                <div class="field"><label>Shadow / glow colour</label><div class="swatches" id="shadowColorSw"></div></div>
+                <div class="field row"><label>Background box</label><label class="switch"><input type="checkbox" id="boxOn" /><span></span></label></div>
+                <div class="field"><label>Box colour</label><div class="swatches" id="boxColorSw"></div></div>
+                <div class="field"><label>Box opacity <output id="boxOpOut">55%</output></label><input type="range" id="boxOpacity" min="0.1" max="1" step="0.05" value="0.55" /></div>
+              </div>
+            </div>
+
+            <div class="tab-body form-body" data-body="position" hidden>
+              <div class="gal-head"><b>Position</b></div>
+              <div class="pos-presets" id="posPresets">
+                <button data-y="0.2"><span class="pp" style="--y:20%"></span>Top</button>
+                <button data-y="0.5"><span class="pp" style="--y:50%"></span>Middle</button>
+                <button data-y="0.74"><span class="pp" style="--y:74%"></span>Lower third</button>
+                <button data-y="0.86"><span class="pp" style="--y:86%"></span>Bottom</button>
+              </div>
+              <div class="form-grid">
+                <div class="field"><label>Vertical position <output id="posOut">74%</output></label><input type="range" id="posY" min="8" max="94" value="74" /></div>
+                <div class="field row"><label>Show Reels / Shorts safe zones</label><label class="switch"><input type="checkbox" id="safeOn" /><span></span></label></div>
+              </div>
+              <p class="hint">Safe zones shade where Instagram and YouTube put their buttons and text. They show in the preview only, never in your export.</p>
+            </div>
+
+            <div class="tab-body" data-body="transcript" hidden>
+              <div class="gal-head"><b>Transcript</b><button class="btn btn-ghost btn-sm" id="addCue2"><i data-lucide="plus"></i>Add caption</button></div>
+              <div class="cue-list" id="cueList"></div>
+              <div class="timing-note" id="timingNote"></div>
+            </div>
+
+            <div class="tab-body form-body" data-body="settings" hidden>
+              <div class="gal-head"><b>More Settings</b></div>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="asrModel">Speech model</label>
+                  <select id="asrModel">
+                    <option value="auto">Auto — best for your language</option>
+                    <option value="turbo-lite">Whisper large-v3 turbo · native script (~560 MB)</option>
+                    <option value="hinglish-q4">Hinglish model · Roman script (~600 MB)</option>
+                    <option value="base">Lightweight · English only (~80 MB)</option>
+                  </select>
+                  <small class="hint" id="modelHint"></small>
+                </div>
+                <div class="field">
+                  <label>Accuracy</label>
+                  <div class="seg" id="modeSegAsr">
+                    <button data-v="thorough" class="on" type="button">Thorough</button>
+                    <button data-v="fast" type="button">Fast</button>
+                  </div>
+                  <small class="hint">Thorough handles videos that switch between Hindi and English. Fast is about 3× quicker and fine for single-language videos.</small>
+                </div>
+                <div class="field side-actions">
+                  <label>Run again</label>
+                  <button class="btn btn-ghost btn-block" id="retranscribe"><i data-lucide="mic"></i>Transcribe again</button>
+                  <button class="btn btn-ghost btn-block" id="translateBtn"><i data-lucide="languages"></i>Translate captions</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="panel timeline" data-pane="preview">
+          <div class="tl-toolbar">
+            <button class="icon-btn" id="undoBtn" title="Undo (Ctrl+Z)" disabled><i data-lucide="undo-2"></i></button>
+            <button class="icon-btn" id="redoBtn" title="Redo (Ctrl+Shift+Z)" disabled><i data-lucide="redo-2"></i></button>
+            <span class="tl-sep"></span>
+            <button class="btn btn-text" id="splitCue" title="Split the selected caption at the playhead"><i data-lucide="scissors"></i>Split</button>
+            <button class="btn btn-text" id="mergeCue" title="Merge the selected caption with the next one"><i data-lucide="combine"></i>Merge</button>
+            <button class="btn btn-text" id="deleteCue" title="Delete the selected caption"><i data-lucide="trash-2"></i>Delete</button>
+            <span class="tl-grow"></span>
+            <button class="icon-btn" id="zoomOut" title="Zoom out"><i data-lucide="minus"></i></button>
+            <input type="range" id="tlZoom" min="0" max="100" value="0" aria-label="Timeline zoom" />
+            <button class="icon-btn" id="zoomIn" title="Zoom in"><i data-lucide="plus"></i></button>
+            <span class="tl-time" id="tlTime">00:00 / 00:00</span>
+          </div>
+          <div class="tl-body">
+            <div class="tl-side">
+              <div class="tl-side-ruler"></div>
+              <button class="tl-btn" id="tlPlay" title="Play / pause"><i data-lucide="play"></i></button>
+              <button class="tl-btn" id="addCue" title="Add a caption at the playhead"><i data-lucide="type"></i></button>
+            </div>
+            <div class="tl-scroll" id="tlScroll">
+              <div class="tl-inner" id="tlInner">
+                <div class="tl-ruler" id="tlRuler"></div>
+                <canvas class="tl-film" id="tlFilm" height="56"></canvas>
+                <div class="tl-track" id="tlTrack"></div>
+                <div class="tl-playhead" id="tlPlayhead"><span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right customize -->
+      <aside class="panel customize" data-pane="style">
+        <h3>Customize Style</h3>
+        <div class="field"><label>Font</label>
+          <button class="font-pick" id="fontBtn" data-target="font" type="button"><span class="fp-name" id="fontBtnName">Baloo 2</span><span class="fp-sub">Browse font library</span><i data-lucide="chevron-right"></i></button>
+        </div>
+        <div class="field"><label>Font Size</label><div class="slider-row"><input type="range" id="size" min="32" max="140" value="72" /><output class="val" id="sizeOut">72 px</output></div></div>
+        <div class="field">
+          <label>Font Weight</label>
+          <div class="weight-btns" id="weightSeg">
+            <button data-v="500" style="font-weight:500">Aa</button>
+            <button data-v="700" style="font-weight:700">Aa</button>
+            <button data-v="800" style="font-weight:800">Aa</button>
+          </div>
+        </div>
+        <div class="field"><label>Text Color</label><div class="swatches" id="colorSw"></div></div>
+        <div class="field"><label>Highlight / Background</label><div class="swatches" id="activeBgSw"></div></div>
+        <div class="field row"><label>Outline</label><label class="switch"><input type="checkbox" id="outlineOn" /><span></span></label></div>
+        <div class="field sub"><label>Thickness</label><div class="slider-row"><input type="range" id="outline" min="1" max="16" value="6" /><output class="val" id="outlineOut">6 px</output></div></div>
+        <div class="field row"><label>Shadow</label><label class="switch"><input type="checkbox" id="shadowOn" /><span></span></label></div>
+        <div class="field sub"><label>Blur</label><div class="slider-row"><input type="range" id="shadow" min="2" max="40" value="18" /><output class="val" id="shadowOut">18 px</output></div></div>
+      </aside>
+    </div>
+
+    <nav class="mobile-tabs" id="mobileTabs">
+      <button data-m="preview" class="on"><i data-lucide="play-circle"></i>Preview</button>
+      <button data-m="captions"><i data-lucide="square-pen"></i>Transcript</button>
+      <button data-m="language"><i data-lucide="languages"></i>Language</button>
+      <button data-m="style"><i data-lucide="palette"></i>Style</button>
+    </nav>
+  </div>
+
+  <footer class="footer">
+    <div class="foot-brand"><span class="wordmark sm">NISHTEK</span><span class="brand-sep"></span><b>Matra Boli</b></div>
+    <nav class="foot-links" aria-label="Legal and help"><a href="faq.html">FAQ</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav>
+    <div class="foot-credit">Vibe coded by <a href="https://www.instagram.com/nishkambhatia/" target="_blank" rel="noopener">Nishkam</a>
+      <a class="insta" href="https://www.instagram.com/nishkambhatia/" target="_blank" rel="noopener" aria-label="Nishkam on Instagram"><i data-lucide="instagram"></i></a>
+    </div>
+  </footer>
+
+  <!-- Export dialog -->
+  <dialog id="exportDialog">
+    <form method="dialog" class="dlg">
+      <div class="dlg-head"><b>Export</b><button class="icon-btn" value="cancel" title="Close"><i data-lucide="x"></i></button></div>
+      <div class="export-opts">
+        <button type="button" class="export-opt" id="expVideo"><i data-lucide="film"></i><div><b>Video with captions</b><small id="expFormat">MP4</small></div></button>
+        <button type="button" class="export-opt" id="expSrt"><i data-lucide="file-text"></i><div><b>SRT subtitles</b><small>YouTube, Premiere, CapCut</small></div></button>
+        <button type="button" class="export-opt" id="expVtt"><i data-lucide="file-code"></i><div><b>WebVTT subtitles</b><small>Web players</small></div></button>
+        <button type="button" class="export-opt" id="expTxt"><i data-lucide="align-left"></i><div><b>Plain transcript</b><small>.txt</small></div></button>
+      </div>
+      <div class="export-progress" id="expProgress" hidden>
+        <b id="expTitle">Rendering video…</b>
+        <div class="bar"><span id="expBar"></span></div>
+        <small class="muted">Rendering happens in real time on your device — keep this tab open.</small>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Font Library -->
+  <dialog id="fontDialog" class="font-dlg" aria-label="Font Library">
+    <div class="fl">
+      <div class="fl-head">
+        <div class="fl-title"><b>Font Library</b><small id="flCount">Google Fonts · loads only what you use</small></div>
+        <div class="seg fl-target" id="flTarget">
+          <button data-t="font" type="button">Base font</button>
+          <button data-t="accentFont" type="button">Accent font</button>
+          <button data-t="hindiFont" type="button">Hindi font</button>
+        </div>
+        <button class="icon-btn" id="flClose" type="button" title="Close"><i data-lucide="x"></i></button>
+      </div>
+      <div class="fl-tools">
+        <div class="fl-search"><i data-lucide="search"></i><input id="flSearch" type="search" placeholder="Search 130 fonts…" autocomplete="off" /></div>
+        <div class="filters" id="flCats"></div>
+      </div>
+      <div class="fl-body">
+        <div class="fl-preview" id="flPreview">
+          <small id="flPrevLabel">LIVE PREVIEW</small>
+          <input id="flPrevText" value="Make every word count." aria-label="Preview text" />
+          <div class="fl-prev-en" id="flPrevEn">Make every word count.</div>
+          <div class="fl-prev-hi" id="flPrevHi">हर शब्द मायने रखता है।</div>
+          <div class="fl-prev-meta" id="flPrevMeta"></div>
+        </div>
+        <div class="fl-grid" id="flGrid"></div>
+      </div>
+      <div class="fl-foot"><span class="muted" id="flNote"></span><button class="btn btn-primary" id="flDone" type="button">Done</button></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

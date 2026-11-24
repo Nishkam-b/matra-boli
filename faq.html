@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ — Matra Boli by Nishtek</title>
+  <meta name="description" content="Answers about Matra Boli: languages, privacy, accuracy, downloads, browsers and exporting captioned videos." />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Matra Boli by Nishtek — home">
+      <img class="logo" src="assets/logo.svg" alt="" width="42" height="42" />
+      <div class="brand-product">
+        <div class="brand-title">Matra Boli <span class="beta">Beta</span></div>
+        <div class="brand-sub">by Nishtek</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="./">Home</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="./#start" class="btn btn-primary btn-sm"><i data-lucide="sparkles"></i>Open Tool</a>
+    </nav>
+  </header>
+
+  <main class="doc faq">
+    <h1>Frequently asked questions</h1>
+    <p class="lede">Matra Boli is a free caption studio for Indian creators. It listens to your video, writes captions in your language and animates them — all inside your browser.</p>
+
+    <h2>The basics</h2>
+    <details open>
+      <summary>What does Matra Boli do?</summary>
+      <p>You upload a short video (up to 60 seconds). Matra Boli transcribes the speech, lets you translate it into another Indian language, and adds animated, Reels-style captions you can style. Then you download the finished video, or just the subtitle file.</p>
+    </details>
+    <details>
+      <summary>Is it really free? What's the catch?</summary>
+      <p>It's free, with no account, watermark or API key. It's a passion project by <a href="https://www.instagram.com/nishkambhatia/" target="_blank" rel="noopener">Nishkam</a> under Nishtek. The AI runs on <em>your</em> computer, so there are no server bills to pass on to you.</p>
+    </details>
+    <details>
+      <summary>Which languages are supported?</summary>
+      <p>Captions: Hindi, Hinglish, English, Punjabi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Assamese and Urdu. Odia is available as a translation target only, because the speech model can't transcribe Odia yet.</p>
+      <p>Hindi, Hinglish and English are the most accurate. Other languages work well for timing, but expect more words that need fixing.</p>
+    </details>
+    <details>
+      <summary>What's the difference between Hindi and Hinglish captions?</summary>
+      <p><b>Hindi</b> writes captions in Devanagari (नमस्ते दोस्तों). <b>Hinglish</b> writes the same speech in Roman script the way creators type it (Namaste doston). For Hinglish, Matra Boli uses a model trained specifically for that, so spellings look natural.</p>
+    </details>
+
+    <h2>Privacy</h2>
+    <details>
+      <summary>Is my video uploaded anywhere?</summary>
+      <p>No. Your video and audio are processed on your own device. The only things downloaded are the app itself, fonts and the AI model files. Nothing you upload is sent to us or anyone else. See the <a href="privacy.html">privacy policy</a> for details.</p>
+    </details>
+    <details>
+      <summary>Do I need to sign up?</summary>
+      <p>No. There are no accounts. Drafts and saved presets are kept in your browser only.</p>
+    </details>
+
+    <h2>Quality &amp; timing</h2>
+    <details>
+      <summary>How accurate are the captions?</summary>
+      <p>On our test set of Hindi, Hinglish and English speech (fast, slow, noisy and up to 60 seconds long), about 95% of words came out right. Each word's highlight starts within 0.2 seconds of being spoken for about 85–90% of words, and within 0.3 seconds for more than 9 in 10.</p>
+      <p>Tamil, Bengali, Marathi and Gujarati are usable but need more fixing: about 7 in 10 words came out right. Telugu sometimes comes back in English letters, and Matra Boli tells you when that happens. Real videos with music or background noise can be less accurate, so always give the captions a quick read before posting.</p>
+    </details>
+    <details>
+      <summary>A word is wrong or appears too early or late. How do I fix it?</summary>
+      <ul>
+        <li>Click any line under <b>Edit Captions</b> and type to fix words.</li>
+        <li>Edit the start or end time next to a line to shift it.</li>
+        <li>Use <b>Split</b> and <b>Merge</b> to change how lines break.</li>
+        <li>Try <b>Transcribe again</b> with a different caption language. For example, pick Hinglish instead of Hindi.</li>
+      </ul>
+    </details>
+    <details>
+      <summary>Can I translate my captions?</summary>
+      <p>Yes. Choose a language under <b>Translate To</b>. Machine translation can get things wrong, so check each line before you publish. Translation needs an extra one-time download of about 900 MB.</p>
+    </details>
+
+    <h2>Technical</h2>
+    <details>
+      <summary>Why is the first run slow?</summary>
+      <p>The first time, your browser downloads the speech model: about 560 MB for Whisper large-v3 turbo, or about 600 MB for the Hinglish model. It's saved in your browser, so later runs start in seconds.</p>
+    </details>
+    <details>
+      <summary>Transcription feels slow. Can I speed it up?</summary>
+      <p>Yes. Open <b>More Settings → Accuracy</b> and choose <b>Fast</b>. It's about 3× quicker and works well when the whole video is in one language. Keep <b>Thorough</b> (the default) for videos that switch between Hindi and English: it checks the language of every few seconds, so English sentences come out in English. Also keep the Matra Boli tab open and visible while it works, because browsers slow down hidden tabs.</p>
+    </details>
+    <details>
+      <summary>Which browser should I use?</summary>
+      <p>Chrome or Edge on a laptop or desktop works best. They support WebGPU, which runs the models on your graphics card. Other browsers and phones may work, but they can be very slow.</p>
+    </details>
+    <details>
+      <summary>Why only 60 seconds?</summary>
+      <p>Matra Boli is built for Reels, Shorts and other short-form video. Keeping clips short also keeps processing fast on a normal computer.</p>
+    </details>
+    <details>
+      <summary>What can I export?</summary>
+      <p>An MP4 video with the animated captions burned in (WebM in browsers that can't record MP4), plus SRT and WebVTT subtitle files and a plain-text transcript. Video export plays the clip through in real time, so keep the tab open until the download starts.</p>
+    </details>
+    <details>
+      <summary>Can I use the exported videos commercially?</summary>
+      <p>Your video and your captions are yours. One exception: the translation feature uses Meta's NLLB-200 model, which is licensed for non-commercial use, so check that licence before using translated captions in paid work. See the <a href="terms.html">terms</a>.</p>
+    </details>
+
+    <div class="doc-cta">
+      <div><b>Ready to try it?</b><br /><span class="muted">Drop in a clip and get captions in under a minute.</span></div>
+      <a href="./#start" class="btn btn-primary"><i data-lucide="sparkles"></i>Open Matra Boli</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="foot-brand"><span class="wordmark sm">NISHTEK</span><span class="brand-sep"></span><b>Matra Boli</b></div>
+    <nav class="foot-links" aria-label="Legal and help"><a href="faq.html">FAQ</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav>
+    <div class="foot-credit">Vibe coded by <a href="https://www.instagram.com/nishkambhatia/" target="_blank" rel="noopener">Nishkam</a>
+      <a class="insta" href="https://www.instagram.com/nishkambhatia/" target="_blank" rel="noopener" aria-label="Nishkam on Instagram"><i data-lucide="instagram"></i></a>
+    </div>
+  </footer>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script>window.lucide && lucide.createIcons();</script>
+</body>
+</html>
