@@ -317,7 +317,7 @@
             </div>
 
             <div class="tab-body" data-body="transcript" hidden>
-              <div class="gal-head"><b>Transcript</b><button class="btn btn-ghost btn-sm" id="addCue2"><i data-lucide="plus"></i>Add caption</button></div>
+              <div class="gal-head"><b>Transcript</b><div class="gal-actions"><button class="btn btn-ghost btn-sm" id="autoSyncBtn2" title="Listen to the audio again and fix caption timing — your text edits are kept"><i data-lucide="wand-sparkles"></i>Auto-sync timing</button><button class="btn btn-ghost btn-sm" id="addCue2"><i data-lucide="plus"></i>Add caption</button></div></div>
               <div class="cue-list" id="cueList"></div>
               <div class="timing-note" id="timingNote"></div>
             </div>
@@ -362,6 +362,9 @@
             <button class="btn btn-text" id="splitCue" title="Split the selected caption at the playhead"><i data-lucide="scissors"></i>Split</button>
             <button class="btn btn-text" id="mergeCue" title="Merge the selected caption with the next one"><i data-lucide="combine"></i>Merge</button>
             <button class="btn btn-text" id="deleteCue" title="Delete the selected caption"><i data-lucide="trash-2"></i>Delete</button>
+            <span class="tl-sep"></span>
+            <button class="btn btn-text tl-ai" id="autoSyncBtn" title="Listen to the audio again and fix caption timing — your text edits are kept"><i data-lucide="wand-sparkles"></i>Auto-sync timing</button>
+            <button class="btn btn-text" id="retranscribe2" title="Transcribe the whole video again from scratch"><i data-lucide="mic"></i>Re-transcribe</button>
             <span class="tl-grow"></span>
             <button class="icon-btn" id="zoomOut" title="Zoom out"><i data-lucide="minus"></i></button>
             <input type="range" id="tlZoom" min="0" max="100" value="0" aria-label="Timeline zoom" />

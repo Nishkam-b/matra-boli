@@ -515,3 +515,9 @@ dialog::backdrop { background: rgba(0,0,0,.35); backdrop-filter: blur(2px); }
 .player:fullscreen { background: #000; }
 .player:-webkit-full-screen { background: #000; }
 body.fs-lock { overflow: hidden; }
+
+/* editor AI actions */
+.tl-toolbar .tl-ai { color: var(--accent-dark); font-weight: 600; }
+.tl-toolbar .tl-ai svg { color: var(--accent); }
+.gal-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+@media (max-width: 900px) { .tl-toolbar #retranscribe2 { display: none; } }

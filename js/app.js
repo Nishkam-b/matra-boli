@@ -226,7 +226,8 @@ function setStep(n) {
 /* AI pipeline (worker)                                                */
 /* ------------------------------------------------------------------ */
 let worker = null;
-let pending = null;
+const pendingReqs = new Map();
+let reqSeq = 0;
 function getWorker() {
   if (worker) return worker;
   worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' });
@@ -242,18 +243,22 @@ function getWorker() {
       $('#busyTitle').textContent = data.text;
       $('#busySub').textContent = 'Running on your device — nothing is uploaded';
       $('#busyBar').style.width = '100%';
-    } else if (pending) {
-      const p = pending; pending = null;
+    } else if (data.id && pendingReqs.has(data.id)) {
+      const p = pendingReqs.get(data.id); pendingReqs.delete(data.id);
       data.type === 'error' ? p.reject(new Error(data.message)) : p.resolve(data);
     }
   };
-  worker.onerror = (e) => { if (pending) { pending.reject(new Error(e.message || 'Worker failed to start')); pending = null; } };
+  worker.onerror = (e) => {
+    for (const p of pendingReqs.values()) p.reject(new Error(e.message || 'Worker failed to start'));
+    pendingReqs.clear();
+  };
   return worker;
 }
 function ask(msg, transfer) {
   return new Promise((resolve, reject) => {
-    pending = { resolve, reject };
-    getWorker().postMessage(msg, transfer || []);
+    const id = ++reqSeq;
+    pendingReqs.set(id, { resolve, reject });
+    getWorker().postMessage({ ...msg, id }, transfer || []);
   });
 }
 function setBusy(on, title, sub) {
@@ -385,10 +390,25 @@ async function transcribe() {
   toast(`Transcribed ${cues.length} captions with ${MODEL_LABEL[model] || model}${det}.`, 4500);
 }
 
+let translating = false;
+function runTranslate() {
+  if (translating || pipelineRunning) { toast('Please wait — still working on the previous step.'); return; }
+  translating = true;
+  translate()
+    .catch((err) => { console.error(err); setBusy(false); toast(`Translation failed: ${err.message}. Please try again — if it keeps failing, reload the page.`, 10000); })
+    .finally(() => { translating = false; });
+}
 async function translate() {
   const tgt = state.tgtLang;
   if (tgt === 'none') { restoreOriginal(); return; }
   if (!state.original.length) { toast('Transcribe or add captions first.'); return; }
+  // Roman-script Hinglish (from the Hinglish model) can't be fed to the translator —
+  // re-read the video in Hindi script first.
+  if (state.modelUsed === 'hinglish-q4' && !LANG[tgt]?.roman && tgt !== 'hi') {
+    toast('Reading your video again in Hindi script so it can be translated…', 5000);
+    await transcribe();
+    if (!state.original.length) return;
+  }
   const srcId = state.srcLang !== 'auto' ? state.srcLang : state.detectedLang && LANG[state.detectedLang] ? state.detectedLang : detectScriptLang(state.original.map((c) => c.text).join(' '));
   const src = LANG[srcId], dst = LANG[tgt];
   setStep(3);
@@ -407,7 +427,7 @@ async function translate() {
     const translated = (res.texts[i] || g.map((c) => c.text).join(' ')).trim();
     return distributeWords(translated, g).map((text, k) => {
       const c = g[k];
-      return { ...c, id: crypto.randomUUID(), text, words: estimateWords(text, c.start, c.end) };
+      return { ...c, id: crypto.randomUUID(), origId: c.id, text, words: estimateWords(text, c.start, c.end) };
     });
   }).filter((c) => c.text);
   state.translated = true;
@@ -464,9 +484,13 @@ function restoreOriginal() {
 }
 
 $('#srcLang').addEventListener('change', (e) => setSource(e.target.value));
-$('#tgtLang').addEventListener('change', (e) => setTarget(e.target.value));
+$('#tgtLang').addEventListener('change', (e) => {
+  setTarget(e.target.value);
+  // In the editor, picking a language translates straight away ("Keep original" restores it).
+  if (document.body.dataset.view === 'editor' && state.original.length) runTranslate();
+});
 $('#retranscribe').addEventListener('click', () => startPipeline());
-$('#translateBtn').addEventListener('click', () => translate().catch((err) => { setBusy(false); toast(`Translation failed: ${err.message}`, 6000); }));
+$('#translateBtn').addEventListener('click', runTranslate);
 
 function setScript(v) {
   state.script = v;
@@ -776,6 +800,131 @@ function tickPreview() {
     if (idx >= 0 && !video.paused) followCue(idx);
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Auto-sync timing: re-listen to the audio, keep the user's text        */
+/* ------------------------------------------------------------------ */
+const syncKey = (w) => {
+  let s = romanize(stripMarks(String(w))).toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g, '');
+  return s.replace(/aa/g, 'a').replace(/ee|ii/g, 'i').replace(/oo|uu/g, 'u').replace(/w/g, 'v').replace(/z/g, 'j')
+    .replace(/ph/g, 'f').replace(/([bcdgjklmnprstv])h/g, '$1').replace(/(.)\1+/g, '$1');
+};
+function editDist(a, b) {
+  if (!a.length) return b.length; if (!b.length) return a.length;
+  let prev = Array.from({ length: b.length + 1 }, (_, j) => j), cur = new Array(b.length + 1);
+  for (let i = 1; i <= a.length; i++) {
+    cur[0] = i;
+    for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    [prev, cur] = [cur, prev];
+  }
+  return prev[b.length];
+}
+/** Match the user's words to freshly-heard words (Needleman–Wunsch on a script-independent key). */
+function matchWords(userKeys, refKeys) {
+  const m = userKeys.length, n = refKeys.length, GAP = 0.7;
+  const sim = (a, b) => 1 - editDist(a, b) / Math.max(1, a.length, b.length);
+  const D = Array.from({ length: m + 1 }, () => new Float32Array(n + 1));
+  const P = Array.from({ length: m + 1 }, () => new Uint8Array(n + 1));
+  for (let i = 1; i <= m; i++) { D[i][0] = i * GAP; P[i][0] = 1; }
+  for (let j = 1; j <= n; j++) { D[0][j] = j * GAP; P[0][j] = 2; }
+  for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) {
+    const sub = D[i - 1][j - 1] + (1 - sim(userKeys[i - 1], refKeys[j - 1])) * 1.2;
+    const del = D[i - 1][j] + GAP, ins = D[i][j - 1] + GAP;
+    if (sub <= del && sub <= ins) { D[i][j] = sub; P[i][j] = 0; } else if (del <= ins) { D[i][j] = del; P[i][j] = 1; } else { D[i][j] = ins; P[i][j] = 2; }
+  }
+  const pairs = new Array(m).fill(-1);
+  let i = m, j = n;
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && P[i][j] === 0) { if (sim(userKeys[i - 1], refKeys[j - 1]) >= 0.45) pairs[i - 1] = j - 1; i--; j--; }
+    else if (i > 0 && (j === 0 || P[i][j] === 1)) i--;
+    else j--;
+  }
+  return pairs;
+}
+/** New timings for a caption track, given words heard in the audio. Returns { cues, matched }. */
+function retimeTrack(track, refWords) {
+  const user = [];
+  track.forEach((c, ci) => c.text.trim().split(/\s+/).filter(Boolean).forEach((t) => user.push({ text: t, ci })));
+  if (!user.length || !refWords.length) return { cues: track, matched: 0 };
+  const pairs = matchWords(user.map((u) => syncKey(u.text)), refWords.map((w) => syncKey(w.text)));
+  user.forEach((u, k) => { if (pairs[k] >= 0) { u.start = refWords[pairs[k]].start; u.end = refWords[pairs[k]].end; } });
+  // unmatched words: spread evenly between their matched neighbours
+  for (let k = 0; k < user.length; k++) {
+    if (user[k].start != null) continue;
+    let a = k - 1; while (a >= 0 && user[a].start == null) a--;
+    let b = k + 1; while (b < user.length && user[b].start == null) b++;
+    const lo = a >= 0 ? user[a].end : Math.max(0, (b < user.length ? user[b].start : track[user[k].ci].start) - 0.4 * (b - k));
+    const hi = b < user.length ? user[b].start : Math.min(state.duration || lo + 2, lo + 0.4 * (k - a + 1));
+    const span = Math.max(0.1, hi - lo), steps = b - a;
+    for (let q = a + 1; q < b; q++) {
+      user[q].start = lo + (span * (q - a - 1)) / (steps - 1 || 1) * ((steps - 1) / steps);
+      user[q].end = user[q].start + span / steps;
+    }
+    k = b - 1;
+  }
+  const cues = track.map((c, ci) => {
+    const ws = user.filter((u) => u.ci === ci);
+    if (!ws.length) return { ...c };
+    const words = ws.map((w) => ({ text: w.text, start: +w.start.toFixed(3), end: +Math.max(w.start + 0.08, w.end).toFixed(3) }));
+    return { ...c, start: words[0].start, end: Math.max(words[words.length - 1].end, words[0].start + 0.4), words };
+  });
+  // never overlap the next caption
+  for (let i = 0; i < cues.length - 1; i++) {
+    if (cues[i].end > cues[i + 1].start) cues[i].end = Math.max(cues[i].start + 0.2, cues[i + 1].start - 0.02);
+    cues[i].words = cues[i].words.map((w) => ({ ...w, end: Math.min(w.end, cues[i].end) }));
+  }
+  return { cues, matched: pairs.filter((p) => p >= 0).length / user.length };
+}
+async function autoSyncTiming() {
+  if (!state.file) return;
+  if (!state.cues.length) { toast('Transcribe or add captions first.'); return; }
+  if (pipelineRunning || translating) { toast('Please wait — still working on the previous step.'); return; }
+  pipelineRunning = true;
+  try {
+    setBusy(true, 'Re-syncing caption timing…', 'Listening to your video again — your text edits are kept');
+    let audio;
+    try { audio = await decodeAudio(state.file); } catch { throw new Error('NO_AUDIO'); }
+    // Align the source-language text: translated lines follow their original line.
+    const track = state.translated ? state.original : state.cues;
+    const srcId = state.srcLang !== 'auto' ? state.srcLang : state.detectedLang;
+    const lang = LANG[srcId]?.whisper || null;
+    const model = state.modelUsed && state.modelUsed !== 'hinglish-q4' ? state.modelUsed : (state.script === 'roman' ? 'hinglish-q4' : 'turbo-lite');
+    const res = await ask({ type: 'transcribe', audio: audio.slice(), language: lang, model, mode: $('#modeSegAsr .on')?.dataset.v || 'thorough' });
+    const heard = buildCues(res, audio, state.duration).flatMap((c) => c.words);
+    if (!heard.length) { toast("Couldn't hear any speech to sync to — timing left unchanged.", 6000); return; }
+    const { cues: fixed, matched } = retimeTrack(track, heard);
+    pushHistory();
+    if (state.translated) {
+      state.original = fixed;
+      const byId = new Map(fixed.map((c) => [c.id, c]));
+      state.cues = state.cues.map((c) => {
+        const o = byId.get(c.origId);
+        return o ? { ...c, start: o.start, end: o.end, words: estimateWords(c.text, o.start, o.end) } : c;
+      });
+    } else {
+      state.cues = fixed;
+      state.original = structuredClone(fixed);
+    }
+    state.timing = 'aligned';
+    dirty(); renderCues();
+    const pct = Math.round(matched * 100);
+    toast(pct >= 60
+      ? `Timing re-synced to the audio — ${pct}% of your words matched what was said. Undo (Ctrl+Z) if you preferred the old timing.`
+      : `Timing re-synced, but only ${pct}% of words matched the audio (heavily edited or translated text). Check the result, or Undo (Ctrl+Z).`, 8000);
+  } catch (err) {
+    console.error(err);
+    toast(err.message === 'NO_AUDIO' ? "This video has no audio we can read, so timing can't be synced." : `Auto-sync failed: ${err.message}`, 8000);
+  } finally {
+    setBusy(false);
+    pipelineRunning = false;
+  }
+}
+$('#autoSyncBtn').addEventListener('click', autoSyncTiming);
+$('#autoSyncBtn2').addEventListener('click', autoSyncTiming);
+$('#retranscribe2').addEventListener('click', () => {
+  if (state.cues.length && !confirm('Transcribe the whole video again? This replaces your captions and edits. (To keep your edits and only fix timing, use Auto-sync timing.)')) return;
+  startPipeline();
+});
 
 /* ------------------------------------------------------------------ */
 /* Undo / redo                                                         */

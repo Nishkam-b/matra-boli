@@ -290,7 +290,7 @@ async function getTranslator() {
   return tr;
 }
 
-self.onmessage = async ({ data }) => {
+async function handle(data) {
   try {
     if (data.type === 'transcribe') {
       const t0 = performance.now();
@@ -378,7 +378,7 @@ self.onmessage = async ({ data }) => {
       }
       const allWord = pieces.every((p) => p.wordLevel);
       self.postMessage({
-        type: 'transcript', text: pieces.flatMap((p) => p.chunks.map((c) => c.text)).join(''),
+        id: data.id, type: 'transcript', text: pieces.flatMap((p) => p.chunks.map((c) => c.text)).join(''),
         pieces, wordLevel: allWord, mixedTiming: !allWord && pieces.some((p) => p.wordLevel),
         roman: spec.forceLang === 'en', device, loadMs, runMs: performance.now() - t1,
         language: lang, detected, fallback: fallbacks.join(',') || null,
@@ -393,9 +393,15 @@ self.onmessage = async ({ data }) => {
         results.push(r[0]?.translation_text || '');
         self.postMessage({ type: 'status', text: `Translating ${i + 1} / ${data.texts.length}…` });
       }
-      self.postMessage({ type: 'translation', texts: results });
+      self.postMessage({ id: data.id, type: 'translation', texts: results });
     }
   } catch (err) {
-    self.postMessage({ type: 'error', message: err?.message || String(err) });
+    self.postMessage({ id: data.id, type: 'error', message: err?.message || String(err) });
   }
-};
+}
+
+
+// Jobs run one at a time, in order; every reply carries the request id so the app
+// can never mix up results (two overlapping requests used to lose one of them).
+let queue = Promise.resolve();
+self.onmessage = ({ data }) => { queue = queue.then(() => handle(data)).catch((e) => console.warn(e)); };
